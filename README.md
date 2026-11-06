@@ -2,6 +2,8 @@
 
 Restores the colours of underwater photos in the browser. The red that water absorbs is rebuilt and the blue-green cast is lifted. Photos are processed entirely on the device and never uploaded.
 
+**Try it:** <https://underwatercolor.vitaminsea.studio/>
+
 The home page shows a built-in sample with a before/after divider you can drag (arrow keys also work). After you pick a photo, four sliders appear:
 
 - **Restore** (0–100 %, default 100 %): mixes in real time.
