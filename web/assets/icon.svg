@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title">
+  <title id="title">水下照片色彩还原图标</title>
+  <defs>
+    <linearGradient id="murk" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#14646C" />
+      <stop offset="1" stop-color="#0A4048" />
+    </linearGradient>
+    <linearGradient id="clear" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#2CC4CE" />
+      <stop offset="1" stop-color="#0B8AA6" />
+    </linearGradient>
+    <linearGradient id="coral" x1="512" y1="280" x2="916" y2="740" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF9A62" />
+      <stop offset="1" stop-color="#F0553C" />
+    </linearGradient>
+    <path id="fish" d="M924 512C846 340 640 262 474 332C408 360 350 410 304 462L154 350C128 331 98 353 106 384C120 432 130 474 130 512C130 550 120 592 106 640C98 671 128 693 154 674L304 562C350 614 408 664 474 692C640 762 846 684 924 512Z" />
+    <clipPath id="tile"><rect width="1024" height="1024" rx="228" /></clipPath>
+    <clipPath id="before"><rect width="512" height="1024" /></clipPath>
+    <clipPath id="after"><rect x="512" width="512" height="1024" /></clipPath>
+    <clipPath id="body"><use href="#fish" /></clipPath>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="512" height="1024" fill="url(#murk)" />
+    <rect x="512" width="512" height="1024" fill="url(#clear)" />
+    <use href="#fish" fill="#6BA8A3" clip-path="url(#before)" />
+    <use href="#fish" fill="url(#coral)" clip-path="url(#after)" />
+    <g clip-path="url(#body)">
+      <path d="M592 260C640 360 640 664 592 764H672C722 664 722 360 672 260Z" fill="#FFF6EA" />
+    </g>
+    <circle cx="806" cy="462" r="38" fill="#14343A" />
+    <rect x="492" width="40" height="1024" fill="#FFFFFF" />
+  </g>
+</svg>

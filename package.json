@@ -1,0 +1,14 @@
+{
+  "name": "openwatercolor-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "On-device underwater photo colour restoration for the web.",
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node scripts/build.mjs web",
+    "build:all": "node scripts/build.mjs all",
+    "serve": "node scripts/serve.mjs dist/web 8080",
+    "start": "node scripts/build.mjs web && node scripts/serve.mjs dist/web 8080"
+  }
+}

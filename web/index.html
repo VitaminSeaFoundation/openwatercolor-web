@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+  <title>饼妹水下照片小助手</title>
+  <meta name="description" content="水下照片色彩还原：照片只在本机处理，不会上传。Restore underwater photo colours on your device." />
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <div class="ocean" aria-hidden="true">
+    <span class="sun-shimmer"></span>
+    <span class="ray ray-1"></span>
+    <span class="ray ray-2"></span>
+    <span class="ray ray-3"></span>
+    <span class="ray ray-4"></span>
+    <span class="ray ray-5"></span>
+    <span class="ray ray-6"></span>
+    <span class="sun-glow"></span>
+    <span class="bubble bubble-1"></span>
+    <span class="bubble bubble-2"></span>
+    <span class="bubble bubble-3"></span>
+    <span class="bubble bubble-4"></span>
+    <span class="bubble bubble-5"></span>
+    <span class="bubble bubble-6"></span>
+    <svg class="reef" viewBox="0 0 560 150" preserveAspectRatio="xMidYMax slice">
+      <path class="reef-far" d="M0 150V100C40 84 74 88 108 102C146 116 178 108 212 94C250 78 286 82 322 98C358 112 392 110 428 94C466 78 510 80 560 98V150Z" />
+      <g class="reef-coral">
+        <path transform="translate(96 4)" d="M58 136V92M58 112L38 88M38 88L28 70M38 88L44 68M58 100L74 78M74 78L68 60M74 78L88 66" />
+        <path transform="translate(-24 0)" d="M410 134V96M410 116L392 96M392 96L384 78M392 96L400 78M410 106L426 86M426 86L420 68M426 86L440 74" />
+        <path transform="translate(-222 12)" d="M502 132V108M502 120L490 104M490 104L486 90M502 114L516 98M516 98L514 84M516 98L526 90" />
+      </g>
+      <path class="reef-near" d="M0 150V126C24 114 52 112 76 124C92 106 122 104 140 122C170 132 206 130 236 136C276 142 314 138 348 128C366 112 394 108 416 122C430 128 450 128 468 120C486 108 516 108 532 122C542 126 552 126 560 124V150Z" />
+    </svg>
+  </div>
+  <svg class="glass-defs" width="0" height="0" aria-hidden="true">
+    <filter id="liquid-glass" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.007 0.011" numOctaves="2" seed="7" result="ripple" />
+      <feDisplacementMap in="SourceGraphic" in2="ripple" scale="52" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true"><img src="./assets/icon.svg" alt="" /></div>
+      <span class="brand-name" data-i18n="appName">饼妹水下照片小助手</span>
+      <span class="local-badge"><span class="status-dot"></span><span data-i18n="localBadge">本机处理</span></span>
+      <label class="language-button" id="language-button">
+        <span id="language-short" aria-hidden="true">简</span>
+        <select id="language-select" aria-label="切换语言" data-i18n-attr="aria-label:switchLanguage"></select>
+      </label>
+    </header>
+
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow" data-i18n="eyebrow">UNDERWATER COLOR RESTORE</p>
+      <h1 id="page-title"><span data-i18n="heroLine1">让每一次下潜，</span><br /><span class="accent" data-i18n="heroLine2">都留下真实的蓝</span></h1>
+      <p class="hero-copy" data-i18n="heroCopy">褪去照片里的蓝绿色偏色，让珊瑚、鱼群和阳光重新鲜活。</p>
+    </section>
+
+    <section class="preview-card" aria-label="水下照片还原前后对比" data-i18n-attr="aria-label:previewLabel">
+      <div class="preview-heading">
+        <div>
+          <p class="section-kicker" id="photo-caption">示例照片</p>
+          <p class="preview-hint" id="preview-hint">拖动分界线，查看色彩变化</p>
+        </div>
+        <span class="compare-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg></span>
+      </div>
+
+      <div class="compare-frame" id="compare-frame">
+        <canvas id="compare-canvas" width="4" height="3" aria-label="水下照片还原前后对比画面" data-i18n-attr="aria-label:canvasLabel"></canvas>
+        <span class="compare-scan" aria-hidden="true"></span>
+        <span class="image-tag before-tag" data-i18n="before">还原前</span>
+        <span class="image-tag after-tag" data-i18n="after">还原后</span>
+        <div class="compare-divider" id="compare-divider" role="slider" tabindex="0" aria-label="拖动分界线对比还原前后" data-i18n-attr="aria-label:dividerLabel" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg></span></div>
+      </div>
+      <div class="strength-control" id="strength-control" hidden>
+        <div class="strength-heading">
+          <label class="strength-label" for="strength-input" data-i18n="strength">色彩还原</label>
+          <output class="strength-value" id="strength-value" for="strength-input">100%</output>
+        </div>
+        <input class="strength-input" id="strength-input" type="range" min="0" max="100" step="1" value="100" />
+        <div class="strength-heading">
+          <label class="strength-label" for="warmth-input" data-i18n="warmth">暖度</label>
+          <span class="strength-hint" aria-hidden="true" data-i18n="warmthHint">冷 — 暖</span>
+          <output class="strength-value" id="warmth-value" for="warmth-input">0</output>
+        </div>
+        <input class="strength-input tuning-input" id="warmth-input" type="range" min="-50" max="50" step="1" value="0" />
+        <div class="strength-heading">
+          <label class="strength-label" for="water-input" data-i18n="water">水色</label>
+          <span class="strength-hint" aria-hidden="true" data-i18n="waterHint">自然 — 深蓝</span>
+          <output class="strength-value" id="water-value" for="water-input">0</output>
+        </div>
+        <input class="strength-input tuning-input" id="water-input" type="range" min="-50" max="50" step="1" value="0" />
+        <div class="strength-heading">
+          <label class="strength-label" for="clarity-input" data-i18n="clarity">通透</label>
+          <span class="strength-hint" aria-hidden="true" data-i18n="clarityHint">柔和 — 通透</span>
+          <output class="strength-value" id="clarity-value" for="clarity-input">0</output>
+        </div>
+        <input class="strength-input tuning-input" id="clarity-input" type="range" min="-50" max="50" step="1" value="0" />
+      </div>
+      <p class="photo-status" id="photo-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="actions" aria-label="照片操作" data-i18n-attr="aria-label:actionsLabel">
+      <button class="primary-button" id="import-button" type="button">
+        <svg class="button-spark" viewBox="0 0 24 24" aria-hidden="true">
+          <defs>
+            <linearGradient id="ai-spark" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#c026d3" />
+              <stop offset="0.5" stop-color="#6d28d9" />
+              <stop offset="1" stop-color="#1d4ed8" />
+            </linearGradient>
+          </defs>
+          <path class="spark-main" fill="url(#ai-spark)" d="M10 3C10.9 8.6 12.9 10.9 19 12C12.9 13.1 10.9 15.4 10 21C9.1 15.4 7.1 13.1 1 12C7.1 10.9 9.1 8.6 10 3Z" />
+          <path class="spark-mini" fill="url(#ai-spark)" d="M19 1.5C19.4 3.9 20.1 4.6 22.5 5C20.1 5.4 19.4 6.1 19 8.5C18.6 6.1 17.9 5.4 15.5 5C17.9 4.6 18.6 3.9 19 1.5Z" />
+        </svg>
+        <span id="import-label">开始AI水下色彩还原</span>
+        <span class="button-arrow" aria-hidden="true">→</span>
+      </button>
+      <div id="result-actions" hidden>
+        <button class="primary-button save-button" id="save-button" type="button">
+          <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 4V15M7 10.5L12 15.5L17 10.5M4.5 20H19.5" />
+          </svg>
+          <span id="save-label">保存到相册</span>
+        </button>
+        <div class="secondary-actions">
+          <button class="secondary-button share-button" id="share-button" type="button">
+            <svg class="xhs-icon" viewBox="0 0 60 36" aria-hidden="true">
+              <rect width="60" height="36" rx="9" fill="#ff2442" />
+              <text x="30" y="24.5" fill="#fff" font-size="17" font-weight="700" text-anchor="middle">小红书</text>
+            </svg>
+            <span id="share-label">分享到小红书</span>
+          </button>
+          <button class="secondary-button" id="comment-button" type="button"><span id="comment-label">发到评论区</span></button>
+        </div>
+        <div class="secondary-actions">
+          <button class="secondary-button" id="another-button" type="button" data-i18n="another">再还原一张</button>
+        </div>
+      </div>
+      <p class="privacy-note" id="privacy-note">照片只在本机处理，不会上传。选择一张水下照片开始。</p>
+    </section>
+
+    <input id="photo-input" class="visually-hidden" type="file" accept="image/jpeg,image/png,image/webp" aria-label="选择水下照片" data-i18n-attr="aria-label:pickerLabel" />
+    <footer class="footer-note">
+      <p class="developer-credit"><span data-i18n="credit">Developed by</span> <strong data-i18n="creditName">海洋维他命 Vitamin Sea</strong></p>
+      <p class="footer-tagline"><span class="footer-wave" aria-hidden="true">〰</span> <span data-i18n="tagline">让每一次潜入，都留下真实的蓝</span></p>
+    </footer>
+  </main>
+  <div class="tap-fish-layer" aria-hidden="true"></div>
+  <div class="saved-overlay" id="saved-overlay" role="dialog" aria-modal="true" aria-labelledby="saved-title" aria-describedby="saved-ask" tabindex="-1" hidden>
+    <div class="saved-water" aria-hidden="true">
+      <svg class="saved-wave" viewBox="0 0 560 40" preserveAspectRatio="none"><path d="M0 40V22C70 2 140 2 210 20C280 38 350 38 420 20C470 8 520 6 560 16V40Z" /></svg>
+    </div>
+    <div class="saved-life" id="saved-life" aria-hidden="true"></div>
+    <div class="saved-content" id="saved-content">
+      <div class="saved-inner" id="saved-inner">
+        <div class="saved-photo" id="saved-photo" aria-hidden="true">
+          <span class="saved-glow"></span>
+          <span class="saved-ripple"></span>
+          <div class="saved-frame">
+            <canvas id="saved-before"></canvas>
+            <div class="saved-after"><canvas id="saved-after"></canvas></div>
+            <span class="saved-divider"></span>
+          </div>
+          <span class="saved-check"><svg viewBox="0 0 24 24"><path d="M6 12.5L10.5 17L18 8" /></svg></span>
+        </div>
+        <h2 class="saved-title" id="saved-title">已保存到相册</h2>
+        <p class="saved-ask" id="saved-ask" data-i18n="savedAsk">要不要分享给大家看看？</p>
+        <div class="saved-actions">
+          <button class="primary-button save-button saved-action-1" id="saved-comment-button" type="button">
+            <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 5.5H20V16.5H11L6.5 20V16.5H4Z" />
+            </svg>
+            <span data-i18n="xhsComment">发到评论区</span>
+          </button>
+          <div class="secondary-actions saved-action-2">
+            <button class="secondary-button share-button" id="saved-share-button" type="button">
+              <svg class="xhs-icon" viewBox="0 0 60 36" aria-hidden="true">
+                <rect width="60" height="36" rx="9" fill="#ff2442" />
+                <text x="30" y="24.5" fill="#fff" font-size="17" font-weight="700" text-anchor="middle">小红书</text>
+              </svg>
+              <span id="saved-share-label">分享到小红书</span>
+            </button>
+          </div>
+          <button class="saved-dismiss saved-action-3" id="saved-dismiss-button" type="button" data-i18n="savedDismiss">先不分享</button>
+        </div>
+      </div>
+    </div>
+    <button class="saved-close" id="saved-close-button" type="button" aria-label="关闭" data-i18n-attr="aria-label:close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" /></svg>
+    </button>
+  </div>
+  <script src="./assets/core/i18n.js"></script>
+  <script src="./assets/core/restore.js"></script>
+  <script src="./assets/core/compare.js"></script>
+  <script src="./assets/platform.js"></script>
+  <script src="./assets/app.js"></script>
+</body>
+</html>

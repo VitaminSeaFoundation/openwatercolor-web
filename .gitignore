@@ -1,0 +1,23 @@
+# Build output
+dist/
+node_modules/
+
+# Xiaohongshu (RedNote) mini tool: adapter, notes, tooling and cover art stay local
+web/platforms/xhs.js
+web/platforms/xhs.md
+.claude/
+.codex/
+*.skill
+cover/
+
+# WeChat mini program stays local
+weapp/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.log
+
+# Lambda Web Function server and deploy script stay local
+deploy/
